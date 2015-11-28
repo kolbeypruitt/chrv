@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="guitars">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+  <script type="text/javascript">
+    angular.module('guitars', ['ngRoute'])
+      .controller('HomeController', function(){
+        
+      })
+      .controller('GuitarController', function($http,$scope){
+        $http.get('/api/v1/guitars').then(function (response) {
+          $scope.guitars = response.data
+        })
+        
+      })
+      .config(function ($routeProvider,$locationProvider) {
+        $routeProvider.when('/', {
+          templateUrl: '/partials/home.html',
+          controller: 'HomeController'
+        })
+        .when('/guitars', {
+          templateUrl: '/partials/guitars.html',
+          controller: 'GuitarController'
+        })
+        .otherwise('/guitars')
+        $locationProvider.html5Mode(true)
+      })
+  </script>
+</head>
+<base href="/">
+<body>
+  <nav>
+   <a href="/">Home</a>
+   |
+   <a href="/guitars">Guitars</a>
+  </nav>
+  <ng-view></ng-view>
+</body>
+</html>
