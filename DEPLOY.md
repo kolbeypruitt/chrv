@@ -9,30 +9,40 @@ avoid a render-blocking stylesheet request. Because there's no build step,
 any edit to `css/style.css` must be manually copy-pasted into that `<style>`
 block to keep the two in sync.
 
-## Deploy: Cloudflare Pages (recommended — DNS for this domain is already on Cloudflare)
+## Deploy: Cloudflare Pages (live now)
 
-`countryhorizonrvpark.com` is already an active zone in the same Cloudflare
-account this repo should deploy to, which makes Cloudflare Pages the
-lowest-friction choice: no external DNS changes needed to attach the real
-domain later.
+The site is deployed at **https://chrv.pages.dev** via `wrangler pages deploy`
+(direct upload — the Pages project `chrv` already exists on the account that
+also holds the `countryhorizonrvpark.com` DNS zone). To redeploy manually
+after changes:
 
-1. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect
-   to Git**, and select the `kolbeypruitt/chrv` GitHub repository (same flow
-   already used for the `kolbeypruitt-com` project on this account).
+```bash
+mkdir -p /tmp/chrv-deploy-stage
+cp index.html robots.txt sitemap.xml /tmp/chrv-deploy-stage/
+cp -R css js img /tmp/chrv-deploy-stage/
+npx wrangler pages deploy /tmp/chrv-deploy-stage --project-name=chrv --branch=master
+```
+
+(requires `npx wrangler login` once per machine)
+
+**One manual step left — connect Git for auto-deploy-on-push:** the `chrv`
+project was created via direct upload, not connected to GitHub, because
+attaching a GitHub repo requires authorizing Cloudflare's GitHub App
+interactively (no API/CLI token can do this on your behalf). To enable it:
+
+1. Cloudflare dashboard → **Workers & Pages → chrv → Settings → Builds →
+   Connect to Git** → select `kolbeypruitt/chrv` (same flow already used for
+   the `kolbeypruitt-com` project on this account).
 2. Build settings: **Framework preset** = None, **Build command** = *(leave
-   empty)*, **Build output directory** = `/` (repo root). No environment
-   variables needed.
-3. **Production branch** = `master`. Every push to `master` will auto-deploy
-   from that point on; every PR gets its own preview URL automatically.
-4. After the first deploy succeeds, go to the project's **Custom domains**
-   tab and add `countryhorizonrvpark.com` (and `www.countryhorizonrvpark.com`
-   if you want the `www` form to also resolve). Because the zone is already
-   on Cloudflare, this is a one-click add — no manual DNS record editing.
+   empty)*, **Build output directory** = `/` (repo root).
+3. **Production branch** = `master`. After this, every push to `master`
+   auto-deploys and every PR gets its own preview URL — the manual `wrangler`
+   command above is no longer needed.
 
-This step requires a Cloudflare-account write action (creating the Pages
-project) that has to be done from an authenticated Cloudflare dashboard
-session — it could not be completed via API in this session (read-only
-access only), so it's the one manual step left for the site owner.
+**Custom domain:** once ready to go live at the real domain, go to the
+project's **Custom domains** tab and add `countryhorizonrvpark.com` (and
+`www.countryhorizonrvpark.com` if desired). Because the zone is already on
+this Cloudflare account, this is a one-click add — no external DNS changes.
 
 ## Other deploy options
 
