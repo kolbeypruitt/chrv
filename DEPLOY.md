@@ -25,19 +25,29 @@ npx wrangler pages deploy /tmp/chrv-deploy-stage --project-name=chrv --branch=ma
 
 (requires `npx wrangler login` once per machine)
 
-**One manual step left — connect Git for auto-deploy-on-push:** the `chrv`
-project was created via direct upload, not connected to GitHub, because
-attaching a GitHub repo requires authorizing Cloudflare's GitHub App
-interactively (no API/CLI token can do this on your behalf). To enable it:
+**Auto-deploy on push — GitHub Actions (recommended, one manual step left):**
+`.github/workflows/deploy.yml` runs `wrangler pages deploy` on every push to
+`master`, visible under this repo's **Actions** tab. It needs one repo secret
+that only a human can create (API tokens can't self-mint via API or OAuth
+session, by Cloudflare's design):
 
-1. Cloudflare dashboard → **Workers & Pages → chrv → Settings → Builds →
-   Connect to Git** → select `kolbeypruitt/chrv` (same flow already used for
-   the `kolbeypruitt-com` project on this account).
-2. Build settings: **Framework preset** = None, **Build command** = *(leave
-   empty)*, **Build output directory** = `/` (repo root).
-3. **Production branch** = `master`. After this, every push to `master`
-   auto-deploys and every PR gets its own preview URL — the manual `wrangler`
-   command above is no longer needed.
+1. Cloudflare dashboard → **My Profile → API Tokens → Create Token** →
+   template **"Edit Cloudflare Workers"** (covers Pages), or a custom token
+   scoped to **Account → Cloudflare Pages → Edit** for this account only.
+2. Add it as a GitHub secret named `CLOUDFLARE_API_TOKEN`:
+   `gh secret set CLOUDFLARE_API_TOKEN --repo kolbeypruitt/chrv` (pastes/reads
+   the token without it ever appearing in a chat transcript), or via the repo's
+   Settings → Secrets and variables → Actions.
+3. That's it — the workflow is already committed. The next push to `master`
+   will run automatically and show up in the Actions tab.
+
+**Alternative — Cloudflare dashboard Git connection:** instead of the GitHub
+Actions route above, you can connect Git directly in Cloudflare's dashboard
+(**Workers & Pages → chrv → Settings → Builds → Connect to Git** → select
+`kolbeypruitt/chrv`, production branch `master`). This runs entirely on
+Cloudflare's side (nothing shows up in GitHub's Actions tab) and also gives
+PR preview URLs. **Use only one of these two auto-deploy methods, not both**
+— having both connected would trigger two deployments per push.
 
 **Custom domain:** once ready to go live at the real domain, go to the
 project's **Custom domains** tab and add `countryhorizonrvpark.com` (and
