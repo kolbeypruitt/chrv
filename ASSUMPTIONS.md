@@ -5,6 +5,14 @@
   photos, or rules text existed in it. All real facts were pulled from the live
   production site (`https://countryhorizonrvpark.com/`) during this session and
   from the business owner directly.
+- **Site count** (14 graveled sites) is per the owner's direct correction. The
+  live production site and the original planning brief both said "9 sites" —
+  the owner confirmed the real number is 14, and every mention on the page
+  (hero, amenities, FAQ answer + matching FAQPage schema, meta descriptions)
+  was updated to match. This is exactly the kind of stale-fact drift this
+  rebuild exists to fix — if the number changes again, grep the repo for
+  "14 " to find every spot it needs updating (no single source of truth for
+  this figure exists since there's no CMS/build step).
 - **Address format** ("9212 W Main St, Ripley, OK 74062") is assumed correct as
   written, since it matches both the live site and the business owner's brief
   verbatim. It was not independently cross-checked against USPS or the Google
@@ -33,7 +41,7 @@
   real, non-dead account; verify it's still active/monitored before keeping it
   in the footer and schema `sameAs`.
 - **Single-page architecture**: chosen over a multi-page site, matching the
-  live site's existing structure and appropriate for a 9-space business —
+  live site's existing structure and appropriate for a 14-space business —
   avoids diluting topical SEO authority across several thin pages.
 - **No contact form**: the live site posted a contact form to `contact.php`,
   which can't run on a static host. This rebuild replaces it with direct
