@@ -3,6 +3,12 @@
 This is a fully static site — `index.html`, `css/`, `js/`, `img/`, `robots.txt`,
 `sitemap.xml` at the repo root. No build step, no server, no database.
 
+`css/style.css` is the source of truth for styles, but its full contents are
+also inlined verbatim into a `<style>` block in `index.html`'s `<head>` to
+avoid a render-blocking stylesheet request. Because there's no build step,
+any edit to `css/style.css` must be manually copy-pasted into that `<style>`
+block to keep the two in sync.
+
 ## Deploy (any of these work)
 
 - **Netlify / Cloudflare Pages / Vercel (static)**: connect the repo, leave the
