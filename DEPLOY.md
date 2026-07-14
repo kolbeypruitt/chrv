@@ -9,13 +9,29 @@ avoid a render-blocking stylesheet request. Because there's no build step,
 any edit to `css/style.css` must be manually copy-pasted into that `<style>`
 block to keep the two in sync.
 
-## Deploy (any of these work)
+## Deploy
 
+- **GitHub Pages (automated, already set up)**: `.github/workflows/deploy.yml`
+  builds and deploys the site to GitHub Pages automatically on every push to
+  `master`. One manual step is still required after this first merges: in the
+  repo's Settings → Pages, set **Source** to **GitHub Actions** (only needs
+  doing once). After that, every push to `master` auto-deploys — no further
+  action needed. The live URL will be `https://<owner>.github.io/<repo>/`
+  until a custom domain is attached (see below).
 - **Netlify / Cloudflare Pages / Vercel (static)**: connect the repo, leave the
   build command empty, set the publish directory to `/` (repo root).
-- **GitHub Pages**: enable Pages on this repo, source = root of the default branch.
 - **Any plain web host / S3 bucket / shared hosting**: upload the repo root
   contents via FTP/SFTP or `aws s3 sync . s3://your-bucket`.
+
+### Attaching the real domain to GitHub Pages
+
+To serve from `https://countryhorizonrvpark.com` instead of a `github.io`
+URL: in Settings → Pages, add `countryhorizonrvpark.com` as a **Custom
+domain** (GitHub will prompt to create a `CNAME` file — commit it at the repo
+root), then at your DNS provider point the domain at GitHub Pages (an `A`
+record set to GitHub's Pages IPs, or a `CNAME` record to `<owner>.github.io`
+for a `www` subdomain — GitHub's Pages docs list the current IPs). Enable
+"Enforce HTTPS" once the certificate provisions.
 
 ## Before going live — required
 
