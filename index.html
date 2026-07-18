@@ -394,16 +394,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 {
   "@context": "https://schema.org",
   "@type": "Campground",
+  "additionalType": "https://schema.org/RVPark",
+  "@id": "https://countryhorizonrvpark.com/#business",
   "name": "Country Horizon RV Park",
-  "image": [
-    "https://countryhorizonrvpark.com/img/park/image0-1600.jpg",
-    "https://countryhorizonrvpark.com/img/park/image1-800.jpg",
-    "https://countryhorizonrvpark.com/img/park/image2-800.jpg"
-  ],
   "url": "https://countryhorizonrvpark.com/",
+  "image": "https://countryhorizonrvpark.com/img/park/image0-1600.jpg",
+  "logo": "https://countryhorizonrvpark.com/img/logo.svg",
+  "description": "Quiet 14-site RV park near Cushing, OK with full 30/50-amp hookups, well water, sewer & free WiFi. Daily and monthly rates. Veterans save 25% off the daily rate.",
   "telephone": "+1-918-399-9423",
-  "email": "chrvpark@gmail.com",
-  "priceRange": "$",
+  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "9212 W Main St",
@@ -417,29 +416,33 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
     "latitude": 35.98640,
     "longitude": -96.90234
   },
+  "hasMap": "https://www.google.com/maps?q=35.98640,-96.90234",
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
     "opens": "06:00",
     "closes": "22:00"
   },
   "sameAs": [
-    "https://www.facebook.com/CountryHorizonRVPark/",
-    "https://twitter.com/chrvpark"
+    "https://www.facebook.com/CountryHorizonRVPark/"
   ],
   "amenityFeature": [
-    { "@type": "LocationFeatureSpecification", "name": "30 Amp Electric Hookup", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "50 Amp Electric Hookup", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Water Hookup", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "30/50 Amp Electric Hookups", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Water Hookup (Private Well)", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Sewer Hookup", "value": true },
     { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Pet Friendly", "value": true }
+    { "@type": "LocationFeatureSpecification", "name": "Pet Friendly", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "On-Site Dumpster", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Mailboxes for Monthly Tenants", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "35 ft Wide Graveled Sites", "value": true }
   ],
+  "numberOfCampsites": 14,
+  "petsAllowed": true,
   "areaServed": [
-    { "@type": "City", "name": "Cushing", "containedInPlace": { "@type": "State", "name": "Oklahoma" } },
-    { "@type": "City", "name": "Stillwater", "containedInPlace": { "@type": "State", "name": "Oklahoma" } },
-    { "@type": "City", "name": "Perkins", "containedInPlace": { "@type": "State", "name": "Oklahoma" } },
-    { "@type": "City", "name": "Ripley", "containedInPlace": { "@type": "State", "name": "Oklahoma" } }
+    { "@type": "City", "name": "Cushing", "sameAs": "https://en.wikipedia.org/wiki/Cushing,_Oklahoma" },
+    { "@type": "City", "name": "Ripley" },
+    { "@type": "City", "name": "Stillwater", "sameAs": "https://en.wikipedia.org/wiki/Stillwater,_Oklahoma" },
+    { "@type": "City", "name": "Perkins" }
   ]
 }
 </script>
